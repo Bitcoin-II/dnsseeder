@@ -35,7 +35,7 @@ public:
   CDnsSeedOpts() : nThreads(96), nDnsThreads(4), nPort(53), mbox(NULL), ns(NULL), host(NULL), tor(NULL), fUseTestNet(false), fWipeBan(false), fWipeIgnore(false), ipv4_proxy(NULL), ipv6_proxy(NULL) {}
 
   void ParseCommandLine(int argc, char **argv) {
-    static const char *help = "Pexacoin-seeder\n"
+    static const char *help = "BitcoinII-seeder\n"
                               "Usage: %s -h <host> -n <ns> [-m <mbox>] [-t <threads>] [-p <port>]\n"
                               "\n"
                               "Options:\n"
@@ -400,34 +400,23 @@ extern "C" void* ThreadStats(void*) {
   return nullptr;
 }
 
-static const string mainnet_seeds[] = {"pool.pexa.dev", "seeds.pexa.dev", ""};
-static const string testnet_seeds[] = {"testnet-seed1.pexacoin.org", ""};
+static const string mainnet_seeds[] = {"dnsseed.bitcoinII.network", ""};
+static const string testnet_seeds[] = {""};
 
 static const string *seeds = mainnet_seeds;
 
 extern "C" void* ThreadSeeder(void*) {
   if (!fTestNet){
-    db.Add(CService("174.138.55.214", 8235), true);
-    db.Add(CService("97.94.59.102", 8235), true);
-    db.Add(CService("140.82.43.171", 8235), true);
-    db.Add(CService("190.79.235.65", 8235), true);
-    db.Add(CService("114.74.180.176", 8235), true);
-    db.Add(CService("190.74.20.72", 8235), true);
-    db.Add(CService("190.36.240.107", 8235), true);
-
-    db.Add(CService("75.71.175.85", 8235), true);
-    db.Add(CService("45.63.84.218", 8235), true);
-    db.Add(CService("80.240.29.156", 8235), true);
-    db.Add(CService("157.230.131.226", 8235), true);
-    db.Add(CService("165.22.194.179", 8235), true);
-    db.Add(CService("45.32.126.23", 8235), true);
-    db.Add(CService("165.227.21.46", 8235), true);
-    db.Add(CService("138.68.187.32", 8235), true);
-    db.Add(CService("149.28.167.106", 8235), true);
-    db.Add(CService("138.68.221.71", 8235), true);
-    db.Add(CService("157.230.131.209", 8235), true);
-    db.Add(CService("159.89.140.19", 8235), true);
-
+    db.Add(CService("104.207.135.201", 8338), true);
+    db.Add(CService("149.28.236.131", 8338), true);
+    db.Add(CService("51.75.117.211", 8338), true);
+    db.Add(CService("64.20.53.98", 8338), true);
+    db.Add(CService("209.145.56.224", 8338), true);
+    db.Add(CService("31.220.80.101", 8338), true);
+    db.Add(CService("185.250.243.159", 8338), true);
+    db.Add(CService("104.207.135.201", 8338), true);
+    db.Add(CService("136.0.42.253", 8338), true);
+    db.Add(CService("173.185.31.182", 8338), true);
   }
   do {
     for (int i=0; seeds[i] != ""; i++) {
@@ -479,10 +468,10 @@ int main(int argc, char **argv) {
   bool fDNS = true;
   if (opts.fUseTestNet) {
       printf("Using testnet.\n");
-      pchMessageStart[0] = 0x50; // P
-      pchMessageStart[1] = 0x45; // E
-      pchMessageStart[2] = 0x58; // X
-      pchMessageStart[3] = 0x41; // A
+      pchMessageStart[0] = 0x0b;
+      pchMessageStart[1] = 0x11;
+      pchMessageStart[2] = 0x09;
+      pchMessageStart[3] = 0x07;
       seeds = testnet_seeds;
       fTestNet = true;
   }
